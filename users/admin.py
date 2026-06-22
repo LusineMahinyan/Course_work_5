@@ -6,4 +6,11 @@ from users.models import User
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
-    pass
+    fieldsets = UserAdmin.fieldsets + (
+        (
+            'Telegram',
+            {
+                'fields': ('telegram_chat_id',)
+            },
+        ),
+    )
