@@ -1,61 +1,35 @@
-from django.conf import settings
 from django.db import models
+from users.models import User
 
 
 class Habit(models.Model):
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        verbose_name='Пользователь'
-    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    place = models.CharField(
-        max_length=255,
-        verbose_name='Место'
-    )
+    place = models.CharField(max_length=255)
+    action = models.CharField(max_length=255)
 
-    time = models.TimeField(
-        verbose_name='Время'
-    )
+    time = models.TimeField()
 
-    action = models.CharField(
-        max_length=255,
-        verbose_name='Действие'
-    )
-
-    is_pleasant = models.BooleanField(
-        default=False,
-        verbose_name='Приятная привычка'
-    )
+    is_pleasant = models.BooleanField(default=False)
 
     related_habit = models.ForeignKey(
         'self',
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        verbose_name='Связанная привычка'
+        limit_choices_to={'is_pleasant': True},
+        related_name='linked_habits'
     )
 
-    periodicity = models.PositiveSmallIntegerField(
-        default=1,
-        verbose_name='Периодичность'
-    )
+    reward = models.CharField(max_length=255, null=True, blank=True)
 
-    reward = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True,
-        verbose_name='Вознаграждение'
-    )
+    periodicity = models.PositiveIntegerField(default=1)  # раз в N дней
 
-    execution_time = models.PositiveSmallIntegerField(
-        verbose_name='Время выполнения'
-    )
+    duration = models.PositiveIntegerField(help_text="в секундах")
 
-    is_public = models.BooleanField(
-        default=False,
-        verbose_name='Публичная привычка'
-    )
+    is_public = models.BooleanField(default=False)
+
+    last_sent = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return f'{self.action} ({self.user})'
+        return f"{self.action} ({self.user.username})"

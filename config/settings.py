@@ -44,13 +44,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_spectacular',
     'corsheaders',
+    'drf_yasg',
 
     'users',
     'habits',
     'telegram_bot',
     'django_celery_beat',
-    'corsheaders',
-
 ]
 
 MIDDLEWARE = [
