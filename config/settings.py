@@ -48,6 +48,9 @@ INSTALLED_APPS = [
     'users',
     'habits',
     'telegram_bot',
+    'django_celery_beat',
+    'corsheaders',
+
 ]
 
 MIDDLEWARE = [
@@ -142,3 +145,7 @@ SIMPLE_JWT = {
 }
 
 TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_TIMEZONE = 'Asia/Yerevan'
