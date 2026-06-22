@@ -1,0 +1,41 @@
+# Byte-compiled
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Environment variables
+.env
+
+# Django
+db.sqlite3
+media/
+staticfiles/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+*.log
+*.pot
+*.pyc
+
+# Migrations (оставляем только __init__.py)
+**/migrations/*
+!**/migrations/__init__.py
+
+# Coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Redis/Celery
+celerybeat-schedule
