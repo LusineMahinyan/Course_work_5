@@ -13,7 +13,9 @@ class HabitListAPIView(generics.ListAPIView):
     pagination_class = HabitPagination
 
     def get_queryset(self):
-        return Habit.objects.filter(user=self.request.user)
+        return Habit.objects.filter(
+            user=self.request.user
+        ).order_by('-id')
 
 
 class HabitCreateAPIView(generics.CreateAPIView):
@@ -29,14 +31,18 @@ class HabitUpdateAPIView(generics.UpdateAPIView):
     permission_classes = [IsAuthenticated, IsOwner]
 
     def get_queryset(self):
-        return Habit.objects.filter(user=self.request.user)
+        return Habit.objects.filter(
+            user=self.request.user
+        ).order_by('-id')
 
 
 class HabitDeleteAPIView(generics.DestroyAPIView):
     permission_classes = [IsAuthenticated, IsOwner]
 
     def get_queryset(self):
-        return Habit.objects.filter(user=self.request.user)
+        return Habit.objects.filter(
+            user=self.request.user
+        ).order_by('-id')
 
 
 class PublicHabitListAPIView(generics.ListAPIView):
@@ -45,6 +51,6 @@ class PublicHabitListAPIView(generics.ListAPIView):
     pagination_class = HabitPagination
 
     def get_queryset(self):
-        return Habit.objects.filter(is_public=True)
-
-
+        return Habit.objects.filter(
+            is_public=True
+        ).order_by('-id')
